@@ -77,5 +77,22 @@ namespace UserCRUDAPI.Tests
             Assert.Equal("Invalid Email", returnUser);
             Assert.Equal(400, statusCode);
         }
+
+        [Theory(DisplayName = "When calling post method with null or empty name, it should return BadRequest")]
+        [InlineData("")]
+        [InlineData(null)]
+        public async Task WhenCallingPutMethodWithNullOrEmptyItShouldUpdateTheUsersEmail(string name)
+        {
+            var context = Utils.setUpDatabase("create_test.db");
+            var newUser = new User() { Name = name };
+            var controller = new UserController(context);
+
+            var result = controller.Create(newUser).Result as BadRequestObjectResult;
+            var returnUser = result.Value;
+            var statusCode = result.StatusCode;
+
+            Assert.Equal("Name must not be null or empty", returnUser);
+            Assert.Equal(400, statusCode);
+        }
     }
 }

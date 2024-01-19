@@ -142,5 +142,27 @@ namespace UserCRUDAPI.Tests
             Assert.Equal("Invalid Email", returnUser);
             Assert.Equal(400, statusCode);
         }
+
+        [Theory(DisplayName = "When calling put method with null or empty name, it should not update name.")]
+        [InlineData("")]
+        [InlineData(null)]
+        public async Task WhenCallingPutMethodWithNullOrEmptyNameItShouldNotUpdateName(string name)
+        {
+            var context = Utils.setUpDatabase("update_test.db");
+
+            var listOfUser = new List<User>()
+            {
+                new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com"},
+            };
+            context.Users.AddRange(listOfUser);
+            context.SaveChanges();
+            var newUser = new User() { Id = null, Name = name };
+            var controller = new UserController(context);
+
+            var result = controller.Update(1, newUser).Result as OkObjectResult;
+            var returnUser = result.Value as User;
+
+            Assert.Equal("Norawich", returnUser.Name);
+        }
     }
 }
