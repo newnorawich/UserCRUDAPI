@@ -35,7 +35,7 @@ namespace UserCRUDAPI.Tests
 
             var user = new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com" };
             context.Users.Add(user);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var controller = new UserController(context);
             var result = controller.Create(user).Result as ConflictObjectResult;

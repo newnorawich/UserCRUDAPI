@@ -28,7 +28,7 @@ namespace UserCRUDAPI.Tests
                 new User() { Id = 3, Name = "Bill", Email = "Bill@gmail.com"}
             };
             context.Users.AddRange(listOfUser);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var newUser = new User() { Id = fromRequestId, Name = requestName, Email = requestEmail };
             var controller = new UserController(context);
@@ -58,7 +58,7 @@ namespace UserCRUDAPI.Tests
                 new User() { Id = 3, Name = "Bill", Email = "Bill@gmail.com"}
             };
             context.Users.AddRange(listOfUser);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var newUser = new User() { Id = 3, Name = "BillKung", Email = null };
             var controller = new UserController(context);
@@ -88,7 +88,7 @@ namespace UserCRUDAPI.Tests
                 new User() { Id = 3, Name = "Bill", Email = "Bill@gmail.com"}
             };
             context.Users.AddRange(listOfUser);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var newUser = new User() { Id = 3, Name = null, Email = "BillKung@mail.com" };
             var controller = new UserController(context);
@@ -131,7 +131,7 @@ namespace UserCRUDAPI.Tests
                 new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com"},
             };
             context.Users.AddRange(listOfUser);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             var newUser = new User() { Id = null, Name = null, Email = "invalidEmail" };
             var controller = new UserController(context);
 
@@ -155,7 +155,7 @@ namespace UserCRUDAPI.Tests
                 new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com"},
             };
             context.Users.AddRange(listOfUser);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             var newUser = new User() { Id = null, Name = name };
             var controller = new UserController(context);
 

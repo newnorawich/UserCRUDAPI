@@ -14,7 +14,7 @@ namespace UserCRUDAPI.Tests
 
             var user = new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com" };
             context.Users.Add(user);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var controller = new UserController(context);
             var result = controller.Delete(1).Result as OkObjectResult;
@@ -30,7 +30,7 @@ namespace UserCRUDAPI.Tests
 
             var user = new User() { Id = 1, Name = "Norawich", Email = "newsnora@gmail.com" };
             context.Users.Add(user);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             var controller = new UserController(context);
             var result = controller.Delete(0).Result as BadRequestObjectResult;
