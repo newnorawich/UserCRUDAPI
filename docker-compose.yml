@@ -1,0 +1,7 @@
+services:
+  usercrudapi:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      - SQLLITE_CONNECTION_STRING=Data Source=user.db
