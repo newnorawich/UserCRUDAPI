@@ -14,7 +14,6 @@ namespace UserCRUDAPI.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        //public static UserAuth user = new UserAuth();
         private readonly IConfiguration _configuration;
         private readonly UserDbContext _context;
 

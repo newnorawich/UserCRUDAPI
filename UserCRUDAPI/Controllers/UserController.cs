@@ -2,6 +2,7 @@ using Infranstructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
 namespace UserCRUDAPI.Controllers
@@ -41,6 +42,10 @@ namespace UserCRUDAPI.Controllers
             {
                 return BadRequest("Id must not be 0");
             }
+            else if (user.Name.IsNullOrEmpty())
+            {
+                return BadRequest("Name must not be null or empty");
+            }
             user.Name = user?.Name?.Trim();
             user.Email = user?.Email?.Trim();
             if (!Utils.emailVerification(user.Email))
@@ -64,7 +69,7 @@ namespace UserCRUDAPI.Controllers
             {
                 return BadRequest("Invalid Email");
             }
-            user.Name = updateInfo?.Name?.Trim() ?? user.Name;
+            user.Name = updateInfo.Name.IsNullOrEmpty() ? user.Name : updateInfo.Name.Trim();
             user.Email = updateInfo?.Email?.Trim() ?? user.Email;
             await _context.SaveChangesAsync();
             return Ok(user);
@@ -81,9 +86,7 @@ namespace UserCRUDAPI.Controllers
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return Ok("Remove Successfully");
-        }
-
-        
+        }  
     }
 
     public static class Utils
